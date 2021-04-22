@@ -47,7 +47,7 @@ public class JoinEvent implements Listener {
         p.addPotionEffect(PotionEffectType.SPEED.createEffect(999999, 1));
         inventoryManager.setItemsOnJoin(p);
 
-        if(checkGroup(p)) e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&f[&b&l+&f]"+ getPrefix(p)+" "+p.getName()));
+        if(checkGroup(p)) e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&f[&b&l+&f] "+ getPrefix(p)+" "+p.getName()));
         else e.setJoinMessage("");
     }
 
