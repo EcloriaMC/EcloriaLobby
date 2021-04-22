@@ -22,7 +22,7 @@ public class Ping implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-        int ping = (((CraftPlayer) p).getHandle().ping);
+        int ping = ((CraftPlayer) p).getHandle().ping;
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&3Ton ping &7&l> &b"+ping+" &bms"));
         return true;
     }
