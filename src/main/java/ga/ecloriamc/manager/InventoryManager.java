@@ -29,7 +29,7 @@ public class InventoryManager {
         Inventory getInventory = p.getInventory();
         getInventory.setItem(4, getPlayerHead(p , ChatColor.translateAlternateColorCodes('&',"&7&l> &3Profil &7&l<")));
         getInventory.setItem(8, createGuiItem(Material.GOLD_INGOT, (short) 0, ChatColor.translateAlternateColorCodes('&',"&7&l> &3Boutique &7&l<"),"", "" ));
-        setAstronautEquipements(p);
+
     }
 
     protected ItemStack getPlayerHead(Player p, String name){
@@ -73,11 +73,4 @@ public class InventoryManager {
         return item;
     }
 
-    private void setAstronautEquipements(Player p){
-        PlayerInventory inv = p.getInventory();
-        inv.setHelmet(createGuiItem(Material.GLASS , (short) 0 , ChatColor.translateAlternateColorCodes('&',"&3Tenue Du Cosmonaute"),"" , ""));
-        inv.setChestplate(createGuiItem(Material.LEATHER_CHESTPLATE , (short) -1 ,ChatColor.translateAlternateColorCodes('&',"&3Tenue Du Cosmonaute"),"" , ""));
-        inv.setLeggings(createGuiItem(Material.LEATHER_LEGGINGS , (short) -1,ChatColor.translateAlternateColorCodes('&',"&3Tenue Du Cosmonaute"),"" , ""));
-        inv.setBoots(createGuiItem(Material.LEATHER_BOOTS , (short) -1,ChatColor.translateAlternateColorCodes('&',"&3Tenue Du Cosmonaute"),"" , ""));
-    }
 }
