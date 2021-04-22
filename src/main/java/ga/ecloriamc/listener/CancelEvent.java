@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -65,9 +66,13 @@ public class CancelEvent implements Listener {
     public void onWeatherChange(WeatherChangeEvent e){
         e.setCancelled(true);
     }
+    @EventHandler
+    public void onHunger(FoodLevelChangeEvent e){
+        e.setCancelled(true);
+    }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(EntityDamageEvent e){
-
         if (e.getEntity() instanceof Player){
             Player p = (Player) e.getEntity();
             DamageCause damageCause = e.getCause();
