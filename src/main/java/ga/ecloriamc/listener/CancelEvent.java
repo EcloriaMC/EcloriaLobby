@@ -75,6 +75,7 @@ public class CancelEvent implements Listener {
             if(damageCause == EntityDamageEvent.DamageCause.VOID ||damageCause == EntityDamageEvent.DamageCause.FALL){
                 p.setFallDistance(0);
                 if(damageCause == EntityDamageEvent.DamageCause.VOID) p.teleport(plugin.getSpawnManager().getSpawnLocation());
+                e.setCancelled(true);
             }
         }
     }
