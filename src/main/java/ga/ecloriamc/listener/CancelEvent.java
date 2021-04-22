@@ -39,8 +39,9 @@ public class CancelEvent implements Listener {
     }
     @EventHandler
     public void onInterractTrapDoor(PlayerInteractEvent e){
-        if(e.getClickedBlock().getType() == Material.TRAP_DOOR)
-        e.setCancelled(true);
+        if(e.getClickedBlock() != null){
+            if(e.getClickedBlock().getType() == Material.TRAP_DOOR) e.setCancelled(true);
+        }
     }
 
     @EventHandler

@@ -15,6 +15,6 @@ public class PlayerChatEvent implements Listener {
         UserManager uM = lP.getUserManager();
         Player p = e.getPlayer();
         String prefix = uM.getUser(e.getPlayer().getName()).getCachedData().getMetaData().getPrefix();
-        e.setFormat(ChatColor.translateAlternateColorCodes('&', prefix +"&f"+p.getName()+" &e&l> &7"+e.getMessage() ));
+        e.setFormat(ChatColor.translateAlternateColorCodes('&', prefix +" &f"+p.getName()+" &e&l> &7"+e.getMessage() ));
     }
 }
