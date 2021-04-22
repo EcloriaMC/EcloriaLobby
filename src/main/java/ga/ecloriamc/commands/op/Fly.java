@@ -24,7 +24,14 @@ public class Fly implements CommandExecutor {
         }
         Player p = (Player) sender;
         if(args.length == 0) {
-            p.setFlying(true);
+            if(p.isFlying()) {
+                p.setFlying(false);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cVous avez desactiver le fly !"));
+            }
+            else {
+                p.setFlying(true);
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aVous avez activer le fly !"));
+            }
             return true;
         }
         else if(args.length == 1){
@@ -34,9 +41,9 @@ public class Fly implements CommandExecutor {
                 targetP.setFlying(!targetP.isFlying());
 
                 if(targetP.isFlying())
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez desactiver le fly à "+ target +"!"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cVous avez desactiver le fly à "+ target +"!"));
                 else
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez activer le fly à "+ target +"!"));
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cVous avez activer le fly à "+ target +"!"));
             }
             return true;
         }
