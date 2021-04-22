@@ -8,6 +8,7 @@ import ga.ecloriamc.commands.player.Ping;
 import ga.ecloriamc.listener.CancelEvent;
 import ga.ecloriamc.listener.JoinEvent;
 import ga.ecloriamc.listener.LeaveEvent;
+import ga.ecloriamc.listener.PlayerChatEvent;
 import ga.ecloriamc.manager.InventoryManager;
 import ga.ecloriamc.manager.SpawnManager;
 import ga.ecloriamc.utils.MessageHelper;
@@ -50,6 +51,7 @@ public final class EcloriaLobby extends JavaPlugin {
         registerEvent(new JoinEvent(this));
         registerEvent(new LeaveEvent());
         registerEvent(new CancelEvent(this));
+        registerEvent(new PlayerChatEvent());
     }
 
     private void registerCommands(){
