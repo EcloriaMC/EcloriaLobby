@@ -42,6 +42,7 @@ public class CancelEvent implements Listener {
         if(e.getClickedBlock().getType() == Material.TRAP_DOOR)
         e.setCancelled(true);
     }
+
     @EventHandler
     public void onPlace(BlockPlaceEvent e){
         e.setCancelled(true);
@@ -67,9 +68,7 @@ public class CancelEvent implements Listener {
         e.setCancelled(true);
     }
     @EventHandler
-    public void onHunger(FoodLevelChangeEvent e){
-        e.setCancelled(true);
-    }
+    public void onHunger(FoodLevelChangeEvent e){ e.setCancelled(true); }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(EntityDamageEvent e){
