@@ -44,7 +44,6 @@ public class JoinEvent implements Listener {
         for (PotionEffect effect : p.getActivePotionEffects())
             p.removePotionEffect(effect.getType());
 
-        p.addPotionEffect(PotionEffectType.JUMP.createEffect(999999,1));
         p.addPotionEffect(PotionEffectType.SPEED.createEffect(999999, 1));
         inventoryManager.setItemsOnJoin(p);
 
