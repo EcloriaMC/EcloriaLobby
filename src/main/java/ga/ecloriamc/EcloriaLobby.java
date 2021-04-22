@@ -1,10 +1,10 @@
 package ga.ecloriamc;
 
-import ga.ecloriamc.command.infos.*;
-import ga.ecloriamc.command.op.*;
-import ga.ecloriamc.command.spawn.SetSpawn;
-import ga.ecloriamc.command.spawn.Spawn;
-import ga.ecloriamc.command.player.Ping;
+import ga.ecloriamc.commands.infos.*;
+import ga.ecloriamc.commands.op.*;
+import ga.ecloriamc.commands.spawn.SetSpawn;
+import ga.ecloriamc.commands.spawn.Spawn;
+import ga.ecloriamc.commands.player.Ping;
 import ga.ecloriamc.listener.CancelEvent;
 import ga.ecloriamc.listener.JoinEvent;
 import ga.ecloriamc.listener.LeaveEvent;

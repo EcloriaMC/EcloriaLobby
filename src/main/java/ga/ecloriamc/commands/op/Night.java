@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.infos;
+package ga.ecloriamc.commands.op;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Dwade implements CommandExecutor {
+public class Night implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Dwade(EcloriaLobby plugin) {
+    public Night(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -22,7 +22,10 @@ public class Dwade implements CommandExecutor {
         }
         Player p = (Player) sender;
 
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Chaine de Dwade &7&l> &bhttps://www.youtube.com/Dwade_Gaming"));
+        p.getWorld().setTime(13000);
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis le jour !"));
+
+
         return true;
     }
 }

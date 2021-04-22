@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.infos;
+package ga.ecloriamc.commands.op;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Youtube implements CommandExecutor {
+public class Sun implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Youtube(EcloriaLobby plugin) {
+    public Sun(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -21,8 +21,14 @@ public class Youtube implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
+        if(p.getWorld().hasStorm()) {
+            p.getWorld().setStorm(false);
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis le beau temps"));
+        }
+        else {
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Il fait deja beau !"));
+        }
 
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Notre Youtube &7&l> &bhttps://www.youtube.com/channel/UCkatlvQ4N0aB4-bkdZblG3Q"));
         return true;
     }
 }

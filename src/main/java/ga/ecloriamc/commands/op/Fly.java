@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.op;
+package ga.ecloriamc.commands.op;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.Bukkit;

@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.op;
+package ga.ecloriamc.commands.op;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Night implements CommandExecutor {
+public class Day implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Night(EcloriaLobby plugin) {
+    public Day(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -22,7 +22,7 @@ public class Night implements CommandExecutor {
         }
         Player p = (Player) sender;
 
-        p.getWorld().setTime(13000);
+        p.getWorld().setTime(0);
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis le jour !"));
 
 

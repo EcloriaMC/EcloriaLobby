@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.infos;
+package ga.ecloriamc.commands.infos;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;

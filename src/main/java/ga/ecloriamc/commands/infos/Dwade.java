@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.op;
+package ga.ecloriamc.commands.infos;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Sun implements CommandExecutor {
+public class Dwade implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Sun(EcloriaLobby plugin) {
+    public Dwade(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -21,14 +21,8 @@ public class Sun implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-        if(p.getWorld().hasStorm()) {
-            p.getWorld().setStorm(false);
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis le beau temps"));
-        }
-        else {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Il fait deja beau !"));
-        }
 
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Chaine de Dwade &7&l> &bhttps://www.youtube.com/Dwade_Gaming"));
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.op;
+package ga.ecloriamc.commands.infos;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Rain implements CommandExecutor {
+public class Twitter implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Rain(EcloriaLobby plugin) {
+    public Twitter(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -21,14 +21,8 @@ public class Rain implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-        if(!p.getWorld().hasStorm()) {
-            p.getWorld().setStorm(true);
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis la pluie"));
-        }
-        else {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Il pleut deja !"));
-        }
 
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Notre Twitter &7&l> &bhttps://twitter.com/MoonlighterOffi"));
         return true;
     }
 }

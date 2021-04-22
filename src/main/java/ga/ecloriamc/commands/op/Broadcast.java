@@ -1,17 +1,17 @@
-package ga.ecloriamc.command.player;
+package ga.ecloriamc.commands.op;
 
 import ga.ecloriamc.EcloriaLobby;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class Ping implements CommandExecutor {
+public class Broadcast implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Ping(EcloriaLobby plugin) {
+    public Broadcast(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -22,8 +22,20 @@ public class Ping implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-        int ping = (((CraftPlayer) p).getHandle().ping);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&3Ton ping &7&l> &b"+ping+" &bms"));
+        int numberOfWord = args.length;
+        if(numberOfWord == 0){
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&',"Vous devez ecrire: /broadcast <msg>"));
+            return true;
+        }
+
+
+        String message = "";
+
+        for(int i = numberOfWord; i < args.length; i++){
+            message += " " + args[i];
+        }
+
+        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',message));
         return true;
     }
 }

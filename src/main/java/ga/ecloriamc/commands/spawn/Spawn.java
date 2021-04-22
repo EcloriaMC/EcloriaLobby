@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.spawn;
+package ga.ecloriamc.commands.spawn;
 
 import ga.ecloriamc.EcloriaLobby;
 import ga.ecloriamc.manager.SpawnManager;

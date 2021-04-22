@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.spawn;
+package ga.ecloriamc.commands.spawn;
 
 import ga.ecloriamc.EcloriaLobby;
 import ga.ecloriamc.manager.SpawnManager;
@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 

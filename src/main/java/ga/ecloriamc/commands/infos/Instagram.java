@@ -1,4 +1,4 @@
-package ga.ecloriamc.command.op;
+package ga.ecloriamc.commands.infos;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Day implements CommandExecutor {
+public class Instagram implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Day(EcloriaLobby plugin) {
+    public Instagram(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -22,10 +22,7 @@ public class Day implements CommandExecutor {
         }
         Player p = (Player) sender;
 
-        p.getWorld().setTime(0);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "Vous avez mis le jour !"));
-
-
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Notre Insta &7&l> &bhttps://www.instagram.com/moonlighterpvp/?hl=fr"));
         return true;
     }
 }

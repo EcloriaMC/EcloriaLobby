@@ -1,16 +1,17 @@
-package ga.ecloriamc.command.infos;
+package ga.ecloriamc.commands.player;
 
 import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class Twitter implements CommandExecutor {
+public class Ping implements CommandExecutor {
     EcloriaLobby plugin;
 
-    public Twitter(EcloriaLobby plugin) {
+    public Ping(EcloriaLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -21,8 +22,8 @@ public class Twitter implements CommandExecutor {
             return true;
         }
         Player p = (Player) sender;
-
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&l&l> &3Notre Twitter &7&l> &bhttps://twitter.com/MoonlighterOffi"));
+        int ping = (((CraftPlayer) p).getHandle().ping);
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&3Ton ping &7&l> &b"+ping+" &bms"));
         return true;
     }
 }
