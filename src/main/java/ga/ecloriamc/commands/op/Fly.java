@@ -25,10 +25,12 @@ public class Fly implements CommandExecutor {
         Player p = (Player) sender;
         if(args.length == 0) {
             if(p.isFlying()) {
+                p.setAllowFlight(false);
                 p.setFlying(false);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cVous avez desactiver le fly !"));
             }
             else {
+                p.setAllowFlight(true);
                 p.setFlying(true);
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aVous avez activer le fly !"));
             }
@@ -38,6 +40,7 @@ public class Fly implements CommandExecutor {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
             if(target.isOnline()) {
                 Player targetP = (Player) target;
+                p.setAllowFlight(!targetP.isFlying());
                 targetP.setFlying(!targetP.isFlying());
 
                 if(targetP.isFlying())
