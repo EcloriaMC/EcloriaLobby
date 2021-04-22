@@ -1,0 +1,125 @@
+name: EcloriaLobby
+version: @version@
+main: ga.ecloriamc.EcloriaLobby
+authors: [zendraft]
+description: main plugin of Ecloria
+website: https://ecloriamc.ga/
+
+commands:
+  setspawn:
+    description: set spawn
+    aliases: /setspawn
+    permission: setspawn.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /setspawn"
+  spawn:
+    description: spawn
+    aliases: /spawn
+    permission: spawn.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /spawn"
+
+  info:
+    description: info
+    aliases: [information, infos, informations]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /info"
+
+  discord:
+    description: discord
+    aliases: [discord]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /discord"
+
+  dwade:
+    description: dwade
+    aliases: [dwade]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /dwade"
+
+  instagram:
+    description: instagram
+    aliases: [instagram]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /instagram"
+
+  site:
+    description: site
+    aliases: [site]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /site"
+
+  twitter:
+    description: twitter
+    aliases: [twitter]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /twitter"
+
+  youtube:
+    description: youtube
+    aliases: [youtube]
+    permission: info.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /youtube"
+
+  ping:
+    description: ping
+    aliases: [ping]
+    permission: ping.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /ping"
+
+  gm:
+    description: gm
+    aliases: [gm,gamemode]
+    permission: gm.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /gm"
+
+  sun:
+    description: weather
+    aliases: [sun]
+    permission: weather.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /sun"
+
+  rain:
+    description: weather
+    aliases: [rain]
+    permission: weather.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /rain"
+
+  day:
+    description: time
+    aliases: [day]
+    permission: time.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /day"
+
+  night:
+    description: time
+    aliases: [night]
+    permission: time.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /night"
+
+  broadcast:
+    description: broadcast
+    aliases: [broadcast]
+    permission: broadcast.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /broadcast"
+
+  fly:
+    description: fly
+    aliases: [fly]
+    permission: fly.use
+    permission-message: Tu n'as pas la permission d'éxécuté cette commande!
+    usage: "Utilise: /fly"
