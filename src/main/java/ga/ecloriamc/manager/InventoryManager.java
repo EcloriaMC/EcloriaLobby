@@ -30,7 +30,7 @@ public class InventoryManager {
 
     public void setItemsOnJoin(Player p) {
         Inventory getInventory = p.getInventory();
-        getInventory.setItem(0, createGuiItemColor(Material.DIAMOND, (short) 0,0,"&7&l> &3Menu Des Jeux &7&l<","",""));
+        getInventory.setItem(0, createGuiItemColor(Material.NETHER_STAR, (short) 0,0,"&7&l> &3Menu Des Jeux &7&l<","",""));
         getInventory.setItem(4, getPlayerHead(p ,color("&7&l> &3Profil &7&l<")));
         getInventory.setItem(8, createGuiItemColor(Material.GOLD_INGOT, (short) 0,0 ,"&7&l> &3Boutique &7&l<","", "" ));
     }
