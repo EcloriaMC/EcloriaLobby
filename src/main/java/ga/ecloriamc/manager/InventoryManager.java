@@ -48,6 +48,7 @@ public class InventoryManager {
 
         plugin.getBungeeManager().getPlayerCount("Skymoon").whenComplete((result, error) -> {
             playerCount[0] = result.toString();
+            p.sendMessage(error.getMessage());
         });
         plugin.getBungeeManager().getPlayerCount("Paintball").whenComplete((result, error) -> {
             playerCount[1] = result.toString();
@@ -55,7 +56,7 @@ public class InventoryManager {
         plugin.getBungeeManager().getPlayerCount("KB-FFA").whenComplete((result, error) -> {
             playerCount[2] = result.toString();
         });
-        plugin.getBungeeManager().getPlayerCount("Créatif").whenComplete((result, error) -> {
+        plugin.getBungeeManager().getPlayerCount("Cr\u00e9atif").whenComplete((result, error) -> {
             playerCount[3] = result.toString();
         });
 
@@ -65,11 +66,28 @@ public class InventoryManager {
         String playerCountCreatif = playerCount[3];
         int playerCountSpawn = p.getServer().getOnlinePlayers().size();
 
-        inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, "&f[&bSkymoon&f]","&f&lIl y a &b&l"+playerCountSkymoon + "&f&l connect\u00e9s au &b&lSkymoon.","&7&l> &3Soon &7&l<"));
-        inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, "&f[&bPaintball&f]","&f&lIl y a &b&l"+playerCountPaintball + "&f&l connect\u00e9s au &b&lPaintball.","&7&l> &3Soon &7&l<"));
+        if(plugin.getBungeeManager().isOpen("Skymoon"))
+            inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, " &f[&bSkymoon&f]","&f&lIl y a &b&l"+playerCountSkymoon + "&f&l connect\u00e9s au &b&lSkymoon.","&7&l> &3Soon &7&l<"));
+        else
+            inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, " &f[&bSkymoon&f]","  &c&lferm\u00e9"," &7&l> &3Soon &7&l<"));
+
+        if(plugin.getBungeeManager().isOpen("Paintball"))
+            inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, " &f[&bPaintball&f]","&f&lIl y a &b&l"+playerCountPaintball + "&f&l connect\u00e9s au &b&lPaintball.","&7&l> &3Soon &7&l<"));
+        else
+            inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, " &f[&bPaintball&f]","  &c&lferm\u00e9"," &7&l> &3Soon &7&l<"));
+
         inv.setItem(22, createGuiItemColor(Material.NETHER_STAR, (short) 0,1, "&f[&bSpawn&f]","&f&lIl y a &b&l"+playerCountSpawn + "&f&l connect\u00e9s au &b&lSpawn.",""));
-        inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","&f&lIl y a &b&l"+playerCountKBFFA + "&f&l connect\u00e9s au &b&lKnockback FFA.",""));
-        inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, "&f[&bCr\u00e9atif&f]","&f&lIl y a &b&l"+playerCountCreatif + "&f&l connect\u00e9s au &b&lCr\u00e9atif.","&7&l> &3Soon &7&l<"));
+
+        if(plugin.getBungeeManager().isOpen("KB-FFA"))
+            inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","&f&lIl y a &b&l"+playerCountKBFFA + "&f&l connect\u00e9s au &b&lKnockback FFA.",""));
+        else
+            inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","      &c&lferm\u00e9",""));
+
+        if(plugin.getBungeeManager().isOpen("Cr\u00e9atif"))
+        inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, " &f[&bCr\u00e9atif&f]","&f&lIl y a &b&l"+playerCountCreatif + "&f&l connect\u00e9s au &b&lCr\u00e9atif.","&7&l> &3Soon &7&l<"));
+        else
+            inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, " &f[&bCr\u00e9atif&f]"," &c&lferm\u00e9", "&7&l> &3Soon &7&l<"));
+
         return inv;
     }
 

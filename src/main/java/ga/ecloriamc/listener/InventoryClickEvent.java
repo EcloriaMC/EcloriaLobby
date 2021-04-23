@@ -32,6 +32,7 @@ public class InventoryClickEvent implements Listener {
             System.out.println(e.getCurrentItem().getType());
             Player p = (Player) e.getWhoClicked();
 
+
             if(e.getCurrentItem().getType() == Material.GRASS){
                 plugin.getBungeeManager().connect(p,"Skymoon");
             }
@@ -45,7 +46,7 @@ public class InventoryClickEvent implements Listener {
                 plugin.getBungeeManager().connect(p,"KB-FFA");
             }
             if(e.getCurrentItem().getType() == Material.LOG){
-                plugin.getBungeeManager().connect(p,"Créatif");
+                plugin.getBungeeManager().connect(p,"Cr\u00e9atif");
             }
 
         }

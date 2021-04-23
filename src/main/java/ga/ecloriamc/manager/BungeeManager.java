@@ -1,5 +1,9 @@
 package ga.ecloriamc.manager;
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
@@ -233,6 +237,24 @@ public class BungeeManager {
         player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     }
 
+    public boolean isOpen(String server){
+        String[] ip = new String[1];
+        int[] port = new int[1];
+
+        getServerIp(server).whenComplete((result, error) -> {
+            ip[0] = result.getHostName();
+            port[0] = result.getPort();
+        });
+
+        try {
+            Socket s = new Socket(ip[0],port[0]);
+            s.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+
+    }
 
     public void forwardToPlayer(String playerName, String channelName, byte[] data) {
         Player player = getFirstPlayer();
