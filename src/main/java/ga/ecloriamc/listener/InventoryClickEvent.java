@@ -32,11 +32,22 @@ public class InventoryClickEvent implements Listener {
             System.out.println(e.getCurrentItem().getType());
             Player p = (Player) e.getWhoClicked();
 
-
+            if(e.getCurrentItem().getType() == Material.GRASS){
+                plugin.getBungeeManager().connect(p,"Skymoon");
+            }
+            if(e.getCurrentItem().getType() == Material.REDSTONE_COMPARATOR){
+                plugin.getBungeeManager().connect(p,"Paintball");
+            }
+            if(e.getCurrentItem().getType() == Material.NETHER_STAR){
+                p.teleport(plugin.getSpawnManager().getSpawnLocation());
+            }
             if(e.getCurrentItem().getType() == Material.DIAMOND_AXE){
-
                 plugin.getBungeeManager().connect(p,"KB-FFA");
             }
+            if(e.getCurrentItem().getType() == Material.LOG){
+                plugin.getBungeeManager().connect(p,"Créatif");
+            }
+
         }
         e.setCancelled(true);
     }
