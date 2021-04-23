@@ -1,7 +1,5 @@
 package ga.ecloriamc.listener;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import ga.ecloriamc.EcloriaLobby;
 import ga.ecloriamc.manager.InventoryManager;
 import org.bukkit.ChatColor;
@@ -10,15 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class InventoryClickEvent implements Listener {
 
