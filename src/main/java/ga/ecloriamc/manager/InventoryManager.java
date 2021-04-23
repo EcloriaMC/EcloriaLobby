@@ -8,6 +8,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -15,6 +16,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.LogRecord;
 
 
 public class InventoryManager {
@@ -27,9 +30,9 @@ public class InventoryManager {
 
     public void setItemsOnJoin(Player p) {
         Inventory getInventory = p.getInventory();
-        getInventory.setItem(0, createGuiItemColor(Material.DIAMOND, (short) 0,"&7&l> &3Menu Des Jeux &7&l<","",""));
+        getInventory.setItem(0, createGuiItemColor(Material.DIAMOND, (short) 0,0,"&7&l> &3Menu Des Jeux &7&l<","",""));
         getInventory.setItem(4, getPlayerHead(p ,color("&7&l> &3Profil &7&l<")));
-        getInventory.setItem(8, createGuiItemColor(Material.GOLD_INGOT, (short) 0, "&7&l> &3Boutique &7&l<","", "" ));
+        getInventory.setItem(8, createGuiItemColor(Material.GOLD_INGOT, (short) 0,0 ,"&7&l> &3Boutique &7&l<","", "" ));
     }
 
 
@@ -37,11 +40,36 @@ public class InventoryManager {
         Inventory inv = Bukkit.createInventory(null, 45,color("&7&l> &3Menu Des Jeux &7&l<"));
         setGlassPanel(inv);
 
-        inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0, "&7&lun jeu","",""));
-        inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0, "&7&lun jeu","",""));
-        inv.setItem(22, createGuiItemColor(Material.NETHER_STAR, (short) 0, "&7&lun jeu","",""));
-        inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0, "&7&lun jeu","",""));
-        inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0, "&7&lun jeu","",""));
+        String[] playerCount = new String[4];
+        playerCount[0] = "0";
+        playerCount[1] = "0";
+        playerCount[2] = "0";
+        playerCount[3] = "0";
+
+        plugin.getBungeeManager().getPlayerCount("Skymoon").whenComplete((result, error) -> {
+            playerCount[0] = result.toString();
+        });
+        plugin.getBungeeManager().getPlayerCount("Paintball").whenComplete((result, error) -> {
+            playerCount[1] = result.toString();
+        });
+        plugin.getBungeeManager().getPlayerCount("KB-FFA").whenComplete((result, error) -> {
+            playerCount[2] = result.toString();
+        });
+        plugin.getBungeeManager().getPlayerCount("Créatif").whenComplete((result, error) -> {
+            playerCount[3] = result.toString();
+        });
+
+        String playerCountSkymoon = playerCount[0];
+        String playerCountPaintball = playerCount[1];
+        String playerCountKBFFA = playerCount[2];
+        String playerCountCreatif = playerCount[3];
+        int playerCountSpawn = p.getServer().getOnlinePlayers().size();
+
+        inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, "&f[&bSkymoon&f]","&f&lIl y a &b&l"+playerCountSkymoon + "&f&l connect\u00e9s au &b&lSkymoon.","&7&l> &3Soon &7&l<"));
+        inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, "&f[&bPaintball&f]","&f&lIl y a &b&l"+playerCountPaintball + "&f&l connect\u00e9s au &b&lPaintball.","&7&l> &3Soon &7&l<"));
+        inv.setItem(22, createGuiItemColor(Material.NETHER_STAR, (short) 0,1, "&f[&bSpawn&f]","&f&lIl y a &b&l"+playerCountSpawn + "&f&l connect\u00e9s au &b&lSpawn.",""));
+        inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","&f&lIl y a &b&l"+playerCountKBFFA + "&f&l connect\u00e9s au &b&lKnockback FFA.",""));
+        inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, "&f[&bCr\u00e9atif&f]","&f&lIl y a &b&l"+playerCountCreatif + "&f&l connect\u00e9s au &b&lCr\u00e9atif.","&7&l> &3Soon &7&l<"));
         return inv;
     }
 
@@ -74,42 +102,67 @@ public class InventoryManager {
     }
 
     private void setGlassPane(Inventory inv,int i,short color){
-        inv.setItem(i, createGuiItemColor(Material.STAINED_GLASS_PANE, color, "", "", "" ));
+        inv.setItem(i, createGuiItemColor(Material.STAINED_GLASS_PANE, color,0,"", "", "" ));
     }
 
     private String color(String string){
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
-    private ItemStack createGuiItemColor(final Material material, final short color, final String name , final String... lore){
-        return createGuiItem(material,color,color(name),color(lore[0]),color(lore[1]));
+
+    private ItemStack createGuiItemColor(Material material, short color, int nbrLine,String name, String... lore){
+        return createGuiItem(material,color,color(name),nbrLine,color(lore[0]), color(lore[1]));
     }
 
-    protected ItemStack createGuiItem(final Material material, final short color, final String name, final String... lore) {
+
+    protected ItemStack createGuiItem(Material material, short color, String name, int nbrLine,String... lore ) {
         final ItemStack item;
 
         if(color>=0) item = new ItemStack(material, 1,color);
         else item = new ItemStack(material, 1);
 
 
+        String[] newLore;
+
+        if(nbrLine==0){
+            newLore = new String[0];
+        }
+        else if(nbrLine == 1){
+            System.out.println(1);
+            int i;
+            newLore = new String[1];
+            for(i=0;i<2;i++){
+                if(!lore[i].isEmpty()) newLore[0] = lore[i];
+            }
+        }
+        else {
+            System.out.println(2);
+            newLore = lore;
+        }
 
         if(color == -1){
             LeatherArmorMeta meta;
             meta = (LeatherArmorMeta) item.getItemMeta();
             meta.setColor(Color.WHITE);
             meta.setDisplayName(name);
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-            List<String> loreList = Arrays.asList(lore);
-            if(!loreList.get(0).isEmpty() && !loreList.get(1).isEmpty()) meta.setLore(loreList);
+
+            if(newLore.length>0)
+                meta.setLore(Arrays.asList(newLore));
+
+
             item.setItemMeta(meta);
         }
         else {
             final ItemMeta meta;
             meta = item.getItemMeta();
             meta.setDisplayName(name);
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-            List<String> loreList = Arrays.asList(lore);
-            if(!loreList.get(0).isEmpty() && !loreList.get(1).isEmpty()) meta.setLore(loreList);
+            if(newLore.length>0)
+                meta.setLore(Arrays.asList(newLore));
+
             item.setItemMeta(meta);
         }
 

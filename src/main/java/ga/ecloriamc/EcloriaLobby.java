@@ -6,6 +6,7 @@ import ga.ecloriamc.commands.spawn.SetSpawn;
 import ga.ecloriamc.commands.spawn.Spawn;
 import ga.ecloriamc.commands.player.Ping;
 import ga.ecloriamc.listener.*;
+import ga.ecloriamc.manager.BungeeManager;
 import ga.ecloriamc.manager.InventoryManager;
 import ga.ecloriamc.manager.SpawnManager;
 import ga.ecloriamc.utils.MessageHelper;
@@ -15,9 +16,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
-
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -27,6 +26,8 @@ public final class EcloriaLobby extends JavaPlugin {
     private MessageHelper messageHelper;
     private InventoryManager inventoryManager;
     private SpawnManager spawnManager;
+    private BungeeManager bungeeManager;
+
 
     @Override
     public void onEnable() {
@@ -37,6 +38,7 @@ public final class EcloriaLobby extends JavaPlugin {
         registerCommands();
 
         sendMessageToConsole("&aPlugin chargé avec succès", false);
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
     @Override
@@ -50,6 +52,7 @@ public final class EcloriaLobby extends JavaPlugin {
         registerEvent(new CancelEvent(this));
         registerEvent(new PlayerChatEvent());
         registerEvent(new InventoryClickEvent(this));
+        registerEvent(new PlayerEvent());
     }
 
     private void registerCommands(){
@@ -78,6 +81,7 @@ public final class EcloriaLobby extends JavaPlugin {
         spawnManager = new SpawnManager(this);
         inventoryManager = new InventoryManager(this);
         messageHelper = new MessageHelper(this);
+        bungeeManager = new BungeeManager(this);
     }
 
     private void config(){
@@ -99,6 +103,7 @@ public final class EcloriaLobby extends JavaPlugin {
         else System.out.println(ChatColor.translateAlternateColorCodes('&', message));
     }
 
+    public BungeeManager getBungeeManager() { return bungeeManager; }
     public MessageHelper getMessageHelper() { return messageHelper; }
     public InventoryManager getInventoryManager() { return inventoryManager; }
     public SpawnManager getSpawnManager() { return spawnManager; }
