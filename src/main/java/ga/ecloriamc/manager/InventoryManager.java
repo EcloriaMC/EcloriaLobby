@@ -15,10 +15,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.LogRecord;
-
 
 public class InventoryManager {
 
@@ -120,7 +116,7 @@ public class InventoryManager {
     }
 
     private void setGlassPane(Inventory inv,int i,short color){
-        inv.setItem(i, createGuiItemColor(Material.STAINED_GLASS_PANE, color,0,"", "", "" ));
+        inv.setItem(i, createGuiItemColor(Material.STAINED_GLASS_PANE, color,0," ", "", "" ));
     }
 
     private String color(String string){
