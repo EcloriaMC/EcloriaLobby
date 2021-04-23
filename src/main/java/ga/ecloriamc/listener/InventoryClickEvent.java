@@ -1,19 +1,24 @@
 package ga.ecloriamc.listener;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import ga.ecloriamc.EcloriaLobby;
 import ga.ecloriamc.manager.InventoryManager;
-import net.md_5.bungee.BungeeCord;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.config.ServerInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.ClickType;
+
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class InventoryClickEvent implements Listener {
 
@@ -27,16 +32,17 @@ public class InventoryClickEvent implements Listener {
 
     @EventHandler
     public void inventoryClickEvent(org.bukkit.event.inventory.InventoryClickEvent e){
-        Inventory inv = e.getInventory();
+        InventoryView inv = e.getView();
 
-        if(e.getClick() == ClickType.RIGHT && e.getClick() == ClickType.LEFT){
-            ServerInfo serverInfo = ProxyServer.getInstance().getServerInfo("test");
-            BungeeCord.getInstance().getPlayer("").connect(serverInfo);
-        }
+        if(inv.getTitle().equals(ChatColor.translateAlternateColorCodes('&',"&7&l> &3Menu Des Jeux &7&l<"))){
+            System.out.println("1");
+            System.out.println(e.getCurrentItem().getType());
+            Player p = (Player) e.getWhoClicked();
 
-        if(inv.getName().equals("&7&l> &3Menu Des Jeux &7&l<")){
-            if(e.getCurrentItem().getType() == Material.WOOD){
 
+            if(e.getCurrentItem().getType() == Material.DIAMOND_AXE){
+
+                plugin.getBungeeManager().connect(p,"KB-FFA");
             }
         }
         e.setCancelled(true);
@@ -48,11 +54,31 @@ public class InventoryClickEvent implements Listener {
         if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK) ||action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
 
             Player p =  e.getPlayer();
+
+            if(e.getItem() != null)
             if(e.getItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',"&7&l> &3Menu Des Jeux &7&l<"))){
                 Inventory gameMenu = inventoryManager.gameMenu(p);
+
                 p.openInventory(gameMenu);
             }
         }
     }
 
+/*
+    public void sendPlayerToServer(Player player, String server) {
+        try {
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(b);
+            out.writeUTF("Connect");
+            out.writeUTF(server);
+
+            player.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
+            b.close();
+            out.close();
+        }
+        catch (Exception e) {
+            player.sendMessage(ChatColor.RED+"Error when trying to connect to "+server);
+        }
+    }
+*/
 }
