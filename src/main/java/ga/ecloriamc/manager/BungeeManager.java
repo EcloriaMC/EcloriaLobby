@@ -1,7 +1,5 @@
 package ga.ecloriamc.manager;
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,9 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
+import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -37,7 +35,7 @@ public class BungeeManager {
     private ForwardConsumer globalForwardListener;
 
 
-    public BungeeManager(Plugin plugin) {
+    public BungeeManager(EcloriaLobby plugin) {
         this.plugin = Objects.requireNonNull(plugin, "plugin cannot be null");
         this.callbackMap = new HashMap<>();
 
@@ -259,19 +257,18 @@ public class BungeeManager {
 
             if (subchannel.equals("PlayerCount") || subchannel.equals("PlayerList") ||
                     subchannel.equals("UUIDOther") || subchannel.equals("ServerIP")) {
+
                 String identifier = input.readUTF(); // Server/player name
                 callbacks = callbackMap.get(subchannel + "-" + identifier);
 
-                if (callbacks == null || callbacks.isEmpty())  {
-                    return;
-                }
+                if (callbacks == null || callbacks.isEmpty())  { return; }
 
                 CompletableFuture<?> callback = callbacks.poll();
 
                 try {
                     switch (subchannel) {
                         case "PlayerCount":
-                            ((CompletableFuture<Integer>) callback).complete(Integer.valueOf(input.readInt()));
+                            ((CompletableFuture<Integer>) callback).complete(input.readInt());
                             break;
 
                         case "PlayerList":

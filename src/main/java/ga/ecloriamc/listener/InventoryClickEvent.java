@@ -28,28 +28,26 @@ public class InventoryClickEvent implements Listener {
         InventoryView inv = e.getView();
 
         if(inv.getTitle().equals(ChatColor.translateAlternateColorCodes('&',"&7&l> &3Menu Des Jeux &7&l<"))){
-            System.out.println("1");
-            System.out.println(e.getCurrentItem().getType());
             Player p = (Player) e.getWhoClicked();
 
+            if(e.getCurrentItem() != null){
+                if(e.getCurrentItem().getType() == Material.GRASS){
+                    plugin.getBungeeManager().connect(p,"Skymoon");
+                }
+                if(e.getCurrentItem().getType() == Material.REDSTONE_COMPARATOR){
+                    plugin.getBungeeManager().connect(p,"Paintball");
+                }
 
-            if(e.getCurrentItem().getType() == Material.GRASS){
-                plugin.getBungeeManager().connect(p,"Skymoon");
+                if(e.getCurrentItem().getType() == Material.NETHER_STAR && e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',"&f[&bSpawn&f]"))){
+                    p.teleport(plugin.getSpawnManager().getSpawnLocation());
+                }
+                if(e.getCurrentItem().getType() == Material.DIAMOND_AXE){
+                    plugin.getBungeeManager().connect(p,"KB-FFA");
+                }
+                if(e.getCurrentItem().getType() == Material.LOG){
+                    plugin.getBungeeManager().connect(p,"Cr\u00e9atif");
+                }
             }
-            if(e.getCurrentItem().getType() == Material.REDSTONE_COMPARATOR){
-                plugin.getBungeeManager().connect(p,"Paintball");
-            }
-
-            if(e.getCurrentItem().getType() == Material.NETHER_STAR && e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',"&f[&bSpawn&f]"))){
-                p.teleport(plugin.getSpawnManager().getSpawnLocation());
-            }
-            if(e.getCurrentItem().getType() == Material.DIAMOND_AXE){
-                plugin.getBungeeManager().connect(p,"KB-FFA");
-            }
-            if(e.getCurrentItem().getType() == Material.LOG){
-                plugin.getBungeeManager().connect(p,"Cr\u00e9atif");
-            }
-
         }
         e.setCancelled(true);
     }

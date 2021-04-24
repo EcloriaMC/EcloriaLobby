@@ -12,9 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -43,7 +40,7 @@ public class InventoryManager {
         getServerItem(p,inv,Material.GRASS, (short) 0,12,"Skymoon",2,true);
         getServerItem(p,inv,Material.REDSTONE_COMPARATOR,(short) 0, 14,"Paintball",2,true);
 
-        getServerItem(p,inv,Material.DIAMOND_AXE, (short) 0, 29,"Knockback FFA",2,false);
+        getServerItem(p,inv,Material.DIAMOND_AXE, (short) 0, 29,"Knockback FFA",1,false);
         getServerItem(p,inv,Material.LOG, (short) 0,33,"Cr\u00e9atif",2,true);
 
         int playerCountSpawn = p.getServer().getOnlinePlayers().size();
@@ -64,7 +61,6 @@ public class InventoryManager {
             try{
                 String ip = result.getHostName();
                 int port = result.getPort();
-
                 try {
                     Socket s = new Socket(ip,port);
                     s.close();

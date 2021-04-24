@@ -9,15 +9,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class CancelEvent implements Listener {
@@ -31,6 +29,17 @@ public class CancelEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
         e.setCancelled(true);
+    }
+
+
+    @EventHandler
+    public void armorStandInterract(PlayerInteractAtEntityEvent e){
+        if(e.getRightClicked().getType() == EntityType.ARMOR_STAND) e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void armorStandInterract(EntityDamageByEntityEvent e){
+        if(e.getEntity().getType() == EntityType.ARMOR_STAND) e.setCancelled(true);
     }
 
     @EventHandler

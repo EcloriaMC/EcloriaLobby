@@ -14,9 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 public class JoinEvent implements Listener {
