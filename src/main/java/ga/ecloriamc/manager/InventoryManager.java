@@ -1,7 +1,6 @@
 package ga.ecloriamc.manager;
 
 import ga.ecloriamc.EcloriaLobby;
-import ga.ecloriamc.utils.MessageHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -13,7 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class InventoryManager {
@@ -36,55 +40,47 @@ public class InventoryManager {
         Inventory inv = Bukkit.createInventory(null, 45,color("&7&l> &3Menu Des Jeux &7&l<"));
         setGlassPanel(inv);
 
-        String[] playerCount = new String[4];
-        playerCount[0] = "0";
-        playerCount[1] = "0";
-        playerCount[2] = "0";
-        playerCount[3] = "0";
 
-        plugin.getBungeeManager().getPlayerCount("Skymoon").whenComplete((result, error) -> {
-            playerCount[0] = result.toString();
-            p.sendMessage(error.getMessage());
-        });
-        plugin.getBungeeManager().getPlayerCount("Paintball").whenComplete((result, error) -> {
-            playerCount[1] = result.toString();
-        });
-        plugin.getBungeeManager().getPlayerCount("KB-FFA").whenComplete((result, error) -> {
-            playerCount[2] = result.toString();
-        });
-        plugin.getBungeeManager().getPlayerCount("Cr\u00e9atif").whenComplete((result, error) -> {
-            playerCount[3] = result.toString();
-        });
+        getServerItem(p,inv,Material.GRASS, (short) 0,12,"Skymoon",2,true);
+        getServerItem(p,inv,Material.REDSTONE_COMPARATOR,(short) 0, 14,"Paintball",2,true);
 
-        String playerCountSkymoon = playerCount[0];
-        String playerCountPaintball = playerCount[1];
-        String playerCountKBFFA = playerCount[2];
-        String playerCountCreatif = playerCount[3];
+        getServerItem(p,inv,Material.DIAMOND_AXE, (short) 0, 29,"Knockback FFA",2,true);
+        getServerItem(p,inv,Material.LOG, (short) 0,33,"Cr\u00e9atif",2,true);
+
         int playerCountSpawn = p.getServer().getOnlinePlayers().size();
-
-        if(plugin.getBungeeManager().isOpen("Skymoon"))
-            inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, " &f[&bSkymoon&f]","&f&lIl y a &b&l"+playerCountSkymoon + "&f&l connect\u00e9s au &b&lSkymoon.","&7&l> &3Soon &7&l<"));
-        else
-            inv.setItem(12, createGuiItemColor(Material.GRASS, (short) 0,2, " &f[&bSkymoon&f]","  &c&lferm\u00e9"," &7&l> &3Soon &7&l<"));
-
-        if(plugin.getBungeeManager().isOpen("Paintball"))
-            inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, " &f[&bPaintball&f]","&f&lIl y a &b&l"+playerCountPaintball + "&f&l connect\u00e9s au &b&lPaintball.","&7&l> &3Soon &7&l<"));
-        else
-            inv.setItem(14, createGuiItemColor(Material.REDSTONE_COMPARATOR, (short) 0,2, " &f[&bPaintball&f]","  &c&lferm\u00e9"," &7&l> &3Soon &7&l<"));
-
         inv.setItem(22, createGuiItemColor(Material.NETHER_STAR, (short) 0,1, "&f[&bSpawn&f]","&f&lIl y a &b&l"+playerCountSpawn + "&f&l connect\u00e9s au &b&lSpawn.",""));
 
-        if(plugin.getBungeeManager().isOpen("KB-FFA"))
-            inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","&f&lIl y a &b&l"+playerCountKBFFA + "&f&l connect\u00e9s au &b&lKnockback FFA.",""));
-        else
-            inv.setItem(29, createGuiItemColor(Material.DIAMOND_AXE, (short) 0,1, "&f[&bKnockback FFA&f]","      &c&lferm\u00e9",""));
-
-        if(plugin.getBungeeManager().isOpen("Cr\u00e9atif"))
-        inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, " &f[&bCr\u00e9atif&f]","&f&lIl y a &b&l"+playerCountCreatif + "&f&l connect\u00e9s au &b&lCr\u00e9atif.","&7&l> &3Soon &7&l<"));
-        else
-            inv.setItem(33, createGuiItemColor(Material.LOG, (short) 0,2, " &f[&bCr\u00e9atif&f]"," &c&lferm\u00e9", "&7&l> &3Soon &7&l<"));
 
         return inv;
+    }
+
+
+    private void getServerItem(Player p, Inventory inv,Material material,short color, int i, String serverName, int nbrLine,boolean isSoon){
+        String server = "";
+        if(serverName.equals("Knockback FFA"))server = "KB-FFA";
+        else server = serverName;
+
+        String finalServer = server;
+
+        plugin.getBungeeManager().getServerIp(p,server).whenComplete((result, error) -> {
+            try{
+                String ip = result.getHostName();
+                int port = result.getPort();
+
+                try {
+                    Socket s = new Socket(ip,port);
+                    s.close();
+                    plugin.getBungeeManager().getPlayerCount(p,finalServer).whenComplete((result2, error2) -> {
+                        String playerCount = result2.toString();
+                        inv.setItem(i,createGuiItemColor(material,  color,nbrLine, "&f[&b"+ serverName +"&f]","&f&lIl y a &b&l"+ playerCount + "&f&l connect\u00e9s au &b&l"+ serverName +".", isSoon?"&7&l> &3Soon &7&l<":""));
+                    });
+                } catch (IOException e) {
+                    inv.setItem(i, createGuiItemColor(material, color,nbrLine, "&f[&b"+ serverName +"&f]","&c&lferm\u00e9",isSoon?"&7&l> &3Soon &7&l<":""));
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     protected ItemStack getPlayerHead(Player p, String name){
@@ -142,17 +138,14 @@ public class InventoryManager {
             newLore = new String[0];
         }
         else if(nbrLine == 1){
-            System.out.println(1);
+
             int i;
             newLore = new String[1];
             for(i=0;i<2;i++){
                 if(!lore[i].isEmpty()) newLore[0] = lore[i];
             }
-        }
-        else {
-            System.out.println(2);
-            newLore = lore;
-        }
+        } else newLore = lore;
+
 
         if(color == -1){
             LeatherArmorMeta meta;

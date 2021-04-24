@@ -1,9 +1,7 @@
 package ga.ecloriamc.manager;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,11 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.WeakHashMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
-import ga.ecloriamc.EcloriaLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -30,7 +27,7 @@ import com.google.common.io.ByteStreams;
 
 public class BungeeManager {
 
-    private static final WeakHashMap<Plugin, EcloriaLobby> registeredInstances = new WeakHashMap<>();
+
 
     private final PluginMessageListener messageListener;
     private final Plugin plugin;
@@ -64,8 +61,8 @@ public class BungeeManager {
         }
     }
 
-    public CompletableFuture<Integer> getPlayerCount(String serverName) {
-        Player player = getFirstPlayer();
+    public CompletableFuture<Integer> getPlayerCount(Player p,String serverName) {
+
         CompletableFuture<Integer> future = new CompletableFuture<>();
 
         synchronized (callbackMap) {
@@ -75,7 +72,7 @@ public class BungeeManager {
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeUTF("PlayerCount");
         output.writeUTF(serverName);
-        player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
+        p.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
         return future;
     }
 
@@ -193,8 +190,8 @@ public class BungeeManager {
     }
 
 
-    public CompletableFuture<InetSocketAddress> getServerIp(String serverName) {
-        Player player = getFirstPlayer();
+    public CompletableFuture<InetSocketAddress> getServerIp(Player p ,String serverName) {
+
         CompletableFuture<InetSocketAddress> future = new CompletableFuture<>();
 
         synchronized (callbackMap) {
@@ -204,7 +201,7 @@ public class BungeeManager {
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeUTF("ServerIP");
         output.writeUTF(serverName);
-        player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
+        p.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
         return future;
     }
 
@@ -237,24 +234,6 @@ public class BungeeManager {
         player.sendPluginMessage(this.plugin, "BungeeCord", output.toByteArray());
     }
 
-    public boolean isOpen(String server){
-        String[] ip = new String[1];
-        int[] port = new int[1];
-
-        getServerIp(server).whenComplete((result, error) -> {
-            ip[0] = result.getHostName();
-            port[0] = result.getPort();
-        });
-
-        try {
-            Socket s = new Socket(ip[0],port[0]);
-            s.close();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-
-    }
 
     public void forwardToPlayer(String playerName, String channelName, byte[] data) {
         Player player = getFirstPlayer();
