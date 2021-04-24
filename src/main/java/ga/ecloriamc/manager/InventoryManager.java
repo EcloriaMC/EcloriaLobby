@@ -40,7 +40,6 @@ public class InventoryManager {
         Inventory inv = Bukkit.createInventory(null, 45,color("&7&l> &3Menu Des Jeux &7&l<"));
         setGlassPanel(inv);
 
-
         getServerItem(p,inv,Material.GRASS, (short) 0,12,"Skymoon",2,true);
         getServerItem(p,inv,Material.REDSTONE_COMPARATOR,(short) 0, 14,"Paintball",2,true);
 
@@ -49,7 +48,6 @@ public class InventoryManager {
 
         int playerCountSpawn = p.getServer().getOnlinePlayers().size();
         inv.setItem(22, createGuiItemColor(Material.NETHER_STAR, (short) 0,1, "&f[&bSpawn&f]","&f&lIl y a &b&l"+playerCountSpawn + "&f&l connect\u00e9s au &b&lSpawn.",""));
-
 
         return inv;
     }

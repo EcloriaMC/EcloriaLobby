@@ -39,7 +39,8 @@ public class InventoryClickEvent implements Listener {
             if(e.getCurrentItem().getType() == Material.REDSTONE_COMPARATOR){
                 plugin.getBungeeManager().connect(p,"Paintball");
             }
-            if(e.getCurrentItem().getType() == Material.NETHER_STAR){
+
+            if(e.getCurrentItem().getType() == Material.NETHER_STAR && e.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',"&f[&bSpawn&f]"))){
                 p.teleport(plugin.getSpawnManager().getSpawnLocation());
             }
             if(e.getCurrentItem().getType() == Material.DIAMOND_AXE){
@@ -68,22 +69,4 @@ public class InventoryClickEvent implements Listener {
             }
         }
     }
-
-/*
-    public void sendPlayerToServer(Player player, String server) {
-        try {
-            ByteArrayOutputStream b = new ByteArrayOutputStream();
-            DataOutputStream out = new DataOutputStream(b);
-            out.writeUTF("Connect");
-            out.writeUTF(server);
-
-            player.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
-            b.close();
-            out.close();
-        }
-        catch (Exception e) {
-            player.sendMessage(ChatColor.RED+"Error when trying to connect to "+server);
-        }
-    }
-*/
 }
